@@ -9,7 +9,7 @@ namespace BestBrains.IETestTest
 	public class IEDriverTest
 	{
 		static string TestDataURI = new DirectoryInfo(System.Environment.CurrentDirectory).Parent.Parent.FullName + @"\testdata\";
-		static bool CloseIE = false;
+		static bool CloseIE = true;
 
 		public IEDriverTest()
 		{
