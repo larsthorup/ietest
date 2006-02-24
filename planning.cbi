@@ -1,0 +1,262 @@
+#[l]:Documentation:Documentation/ietest.xml
+#[c]
+#[c]Before demo at ScanJour
+#[c]+ Decide on name: Register ietest.sf.net
+#[c]+ Compare with WinRunner test scripts (where in SourceSafe?)
+#[c]+ Implement captia.popup=null after popup.submit.click -- Ikke trivielt! Explicit popup.close
+#[c]+ Fix Captia.close so it won't crash IE (we kill it)
+#[c]+ Implement Captia.popAlert
+#[c]+ Implement PopSelectGrid[row, column]
+#[c]+ Separate projects
+#[c]- Change to standard C# naming conventions (casing)
+#[c]- Create helper for creating test sag
+#[c]
+#[c]Later tasks
+#[c]+ Unit Tests for IEDriver
+#[c]+ Consider supporting using(Captia) { }. Have a captia.dontClose() for use during debugging
+#[c]+ Lookup by XPath-like: TABLE[0].TR[3].TD[0]
+#[c]+ Refactor Collections using CodeGenerator or C# 2.0
+#[c]+ Make sure unit tests works when running in NUnitGUI
+#[c]+ Indexing element properties.
+#[c]+ Improve makefile so CodeGenerator is only invoked when input file have changed
+#[c]+ Implement functions that perform lookup by text (changeDisplayMenuByText("Matrikler") that will trace the id to the Debug console to minimized the use of dumpElements
+#[c]- Shine up the web page:
+#[c]  - Documentation!!
+#[c]  - Screenshot. Add to website and to screenshots at sourceforge
+#[c]  - Nicer layout. Frameset rather than one large file
+#[c]- Documenting comments.. :)
+#[c]- Move generated files to a specific folder
+#[c]- Better exceptions than "instance not an object"..
+#[of]:- Javascript -> C# communication
+#[c]----------------------------------------------------------------------------------------------------------
+#[c]> But don't you have to have IIS running in order to use webcontrols? Do you
+#[c]> have any examples, or can you point me to where I can find some good
+#[c]> examples on how to do this?
+#[c]
+#[c]No; you can use RegAsm to create a COM wrapper for the object, and then use
+#[c]it like:
+#[c]
+#[c]    var myObject = new ActiveXObject("YouNamespace.YourClassName")
+#[c]
+#[c]The .NET assembly will either need to be strong-named and in the GAC, or
+#[c]else in the same directory as IExplore.exe for this to work though.
+#[c]----------------------------------------------------------------------------------------------------------
+#[c]
+#[c]
+#[c]
+#[cf]
+#[c]- Automate deployment
+#[c]- Research how to do Captia.waitForJavascript
+#[c]- Make Generic classes (like SearchPage) entity aware (handle constants like "sags_am")
+#[c]- How to do waitForPopup
+#[c]- Use class hierarchy instead of type tests
+#[c]- Let IEDriver be IE-specific implementation of general BrowserDriver interface
+#[c]- Implement simple http server to enable testing for correct POST and GET messages and improved self-test.
+#[c]- Port to C# 2.0 (Generics, Simple Iterators)
+#[c]
+#[c]
+#[of]:Deployment
+#[c]Deployment
+#[c]
+#[c]Preparation:
+#[c]1) Make sure versions are set properly in the documentation (download)
+#[c]2) Update the changelog
+#[c]
+#[c]Website:
+#[c]1) Generate documentation
+#[c]2) WinSCP - connect to shell.sf.net
+#[c]3) Go to /home/i/ie/ietest/htdocs
+#[c]4) Add new files
+#[c]
+#[c]Release:
+#[c]1) Make ietest-x.x.zip by exporting a copy from subversion
+#[c]2) https://sourceforge.net/project/admin/editpackages.php?group_id=138358  (IETest)   /    https://sourceforge.net/project/admin/editpackages.php?group_id=142867 (GSync)
+#[c]3) Make a new release.
+#[c]4) Add changelog etc.
+#[c]5) Connect to upload.sf.net/incoming anonymously! (PASSIVE FTP)
+#[c]6) Add new files
+#[c]7) Select the new files in sf and commit
+#[c]
+#[c]
+#[c]
+#[c]
+#[c]
+#[cf]
+#[of]:Diverse links, etc.
+#[c]Diverse links, etc.
+#[c]
+#[c]
+#[c]Om at fange message boxes:
+#[c]http://ng.csharpfriends.com/top/ng/group~1/~53125~__Center-MessageBox-C~/index.aspx
+#[c]
+#[c]
+#[c]Om at eksekvere kode på tværs af javascript/C# grænsen:
+#[c]http://weborama.blogspot.com/2004/12/mshtml-hosting-calling-javascript-from.html
+#[c]http://weblogs.asp.net/soever/archive/2005/02/03/366656.aspx
+#[c]http://west-wind.com/weblog/posts/393.aspx
+#[c]http://www.codeproject.com/csharp/AutomatingInternetExplore.asp
+#[c]
+#[c]
+#[c]
+#[c]IE Test Tools
+#[c]-------------
+#[c]- http://www.softwareqatest.com/qatweb1.html#FUNC
+#[c]- http://msdn.microsoft.com/library/default.asp?url=/workshop/browser/prog_browser_node_entry.asp
+#[c]- http://wtr.rubyforge.org/
+#[c]- http://home.comcast.net/~furmana/SWIEAutomation.htm
+#[c]- http://pamie.sourceforge.net/
+#[c]- http://ieunit.sourceforge.net/
+#[c]- http://www.automatedqa.com/products/testcomplete/tc_web.asp
+#[c]
+#[c]http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/dialogarguments.asp
+#[c]http://msdn.microsoft.com/workshop/browser/webbrowser/reference/events/newwindow3.asp
+#[c]http://msdn.microsoft.com/library/default.asp?url=/workshop/browser/mshtml/reference/ifaces/dialog/dialog.asp
+#[c]
+#[c]
+#[c]http://www.cheztabor.com/IEDocMon/index.htm
+#[c]http://myie2.tarapages.com/plugins/pafiledb.php?action=file&id=420%22%3EPowerBand%3C/a%3E
+#[c]
+#[c]
+#[c]
+#[c]-------------------------------------------------------------------------------------------------------------------------------------------------------
+#[c]Hi all,
+#[c]
+#[c]http://amoeba.collude.com.au/simplehttpserver/
+#[c]
+#[c]is the result of recent explorations with the System.Web.Hosting
+#[c]namespace. I've managed to quickly hack up a small C# webserver that
+#[c]has the ability to host ASP.NET applications without the need of IIS.
+#[c]
+#[c]It's missing quite a bit, should be able to add some more features
+#[c](I'm hoping for it to serve Web services as well) soon.
+#[c]
+#[c]Comments appreciated.
+#[c]Regards,
+#[c]Joel Pobar.
+#[c]-------------------------------------------------------------------------------------------------------------------------------------------------------
+#[c]
+#[c]
+#[c]
+#[c]
+#[c]
+#[c]-------------------------------------------------------------------------------------------------------------------------------------------------------
+#[c]window.setTimeout("someExpression",1);
+#[c]
+#[c]document.body.onbeforeunload=function(){parent.frames("someFrame").someFunct
+#[c]ion()}
+#[c]
+#[c]var notYet=1;
+#[c]function timer() {
+#[c]if(notYet) {setTimeout("timer() ",50);}
+#[c]else {doSomething()}
+#[c]}
+#[c]notYet=false //stops timer and executes "doSomething()"
+#[c]No idea what setTimer is but if setTimeout is not good enough make a more
+#[c]advanced one using it, you can use date objects if precision is needed, set
+#[c]variables/arrays to pass arguments, 1 millisecond timer with a while!=null
+#[c]statement would likely crash the instance of IE on my computer. Cant you
+#[c]call the function when something is done or onbeforeunload in the another
+#[c]window rather than chewing up cpu resources with a timer.
+#[c]-------------------------------------------------------------------------------------------------------------------------------------------------------
+#[c]
+#[cf]
+#[c]
+#[c]
+#[l]:documentation/generate.bat:documentation/generate.bat
+#[c]
+#[c]
+#[c]
+#[of]:Artikel
+#[c]Artikel
+#[c]
+#[c]Hovedpunkter:
+#[c] + Vi skulle udvikle noget web kode der skulle afvikles i IE
+#[c] + Folk siger at man ikke kan teste GUI kode, men vi er et TDD firma
+#[c] + automatiseret test er nemlig godt
+#[c] + gui er vigtigt at teste fordi det kan være vanskeligt at opdage hvis den præsenterede information er forkert
+#[c] + Vi undersøgte hvilke værktøjer der fandtes. Der var nogle forskellige, men af forskellige grunde kunne vi ikke bruge dem.
+#[c] + Så vi lavede IETest
+#[c] + Som er baseret på C#/NUnit
+#[c] + Med IETest kan man automatisere en kørsel igennem et website og læse tilstanden for at asserte
+#[c] + Assertions er baseret på den rigtige DOM og er opdateret af javascript etc.
+#[c] + Eksempel
+#[c] + Det holder øje med messageboxes
+#[c] - IETest kan hjælpe med at vænne dig til at skrive ordentlig HTML 
+#[c] - IETest fortæller dig hvordan du kan referere til et element som du har søgt efter
+#[c] - Modale popups
+#[c]   - Er svære at arbejde med!
+#[c]   - Watir og andre kan ikke finde ud af det.
+#[c]   - IETest kan heller ikke, men det kan finde ud af modeless boxe.
+#[c]   - Ændr din kode til at køre modeless popups, og du har et testbart miljø.
+#[c] - IETest kan også hjælpe webudvikleren hurtigt hen til den side han arbejder med
+#[c] - Det er let at udbygge
+#[c]
+#[c]
+#[c]
+#[c]
+#[c]
+#[c]
+#[c]I foråret stod vi over for en udviklingsopgave, der bestod af client-side web kode, dvs. HTML og JavaScript.
+#[c]Denne kode udgør brugergrænsefladen til et stort system, hvor en stor del af funktionaliteten
+#[c]ligger client-side, og kun fungerer med Internet Explorer 6.
+#[c]
+#[c]Internet Explorer kan automatiseres da den er opbygget som en COM komponent samt en
+#[c]lille .exe fil der tilgår denne. Da .NET er velegnet til at arbejde med COM, lavede vi et framework der instantierer Internet Explorer
+#[c]og tilgår den via disse COM komponenter. Frameworket, kaldet IETest, er skrevet i C# så man kan bruge NUnit til at skrive tests med.
+#[c]IETest kan bruges til at "surfe programmatisk" med, dvs. forprogrammere en serie af brugerevents
+#[c]igennem et site. Hvis man forsøger at "klikke" på
+#[c]et ikke-eksisterende link eller lignende, rejser eIETest en exception, hvilket fanges af NUnit og rapporteres som en fejl.
+#[c]Man kan også validere sit site ved at læse fra det. Dette gøres ved at traversere DOM'en, der indeholder den endelig HTML, efter at den eventuelt er blevet manipuleret af JavaScript kode.
+#[c]Man kunne forestille sig et forløb som følgende:
+#[c]
+#[c][kode]
+using(IEDriver ie = new IEDriver("login.html", true)) 
+{
+	Form loginForm = ie.MainDocument.FindFORM("loginform");
+	loginForm.FindINPUT("username").Value = "Jens";
+	loginForm.FindINPUT_BUTTON("OK").Click();
+	string response = ie.MainDocument.FindTD("Response", 0).InnerText;
+	Assert.AreEqual("Password field must by filled out", response);
+}
+#[c][/kode]
+#[c]
+#[c]Her indtastes brugernavnet Jens, men passwordfeltet udfyldes ikke. Når man klikker på OK skulle der gerne komme en fejlmeddelelse
+#[c]om det manglende password, hvilket efterprøves med Assert sætningen.
+#[c]
+#[c]Meddelelsen til brugeren kan også komme som en alert. IETest trykker automatisk 
+#[c]OK til alerts, men gemmer indholdet i en kø internt. Man kan således efterprøve at der har været en alert med en given besked, og hvis
+#[c]der har været en alert som man ikke har kigget på vil IETest melde fejl til sidst.
+#[c]Man kan let lave assertions på alerts:
+#[c]
+#[c][kode]
+	Assert.AreEqual("Missing email", ie.popAlert());
+#[c][/kode]
+#[c]
+#[c]IETest bruger ID atributten til opslag af elementer. Dette kan motivere HTML-forfatteren
+#[c]til altid at benytte ID'er. Skulle HTML koden ikke indeholde disse eller er de tvetydige, kan man
+#[c]benytte IETests søgefunktionalitet. Man kan søge efter eksempelvis en TD tag på følgende måde:
+#[c]
+#[c][kode]
+	TableCell itemNo = ie.MainDocument.FindTDFromText("Item number");
+#[c][/kode]
+#[c]
+#[c]Hvis denne tag så rent faktisk har et ID, vil IETest skrive dette ud i debug outputstrømmen:
+#[c]Found a TD tag from the text: Item number. The ID, which you should probably use instead, is: item
+#[c]
+#[c]Selv om automatiseret unit test er et fænomen i vækst, mener mange at brugergrænsefladekode
+#[c]ikke kan testes eller at det i hvert fald er for omstændigt.
+#[c]Og det er omstændigt. Hvor en almindelig unit test skal simulere noget som sker inde i programmet, dvs. den skal simulere
+#[c]en computers opførsel, skal en brugergrænsefladetest simulere en brugers opførsel. Og en computer er mere velegnet
+#[c]til at simulere en computer end til at simulere en bruger. Ikke desto mindre er test og test driven development en så vigtig
+#[c]del af BestBrains' grundlag at vi mente at det var værd at undersøge. Vores erfaring siger at tests er deres egne udviklingsomkostninger
+#[c]værd mangefold, og selv om brugergrænsefladen er lidt mere omstændig at teste måtte det stadig kunne betale sig.
+#[c]Så vi undersøgte markedet for testværktøjer til web brugergrænseflader, og der viste sig at eksistere en række open source
+#[c]værktøjer til formålet. Watir er et Internet Explorer framework skrevet i Ruby der så ud til at være nogenlunde hvad vi havde brug for.
+#[c]Dog var dette ikke helt optimalt da vi ville foretrække at skrive tests i NUnit så disse kunne blive afviklet sammen med de allerede
+#[c]eksisterende tests på byggemaskinen. IEUnit er et andet, der er baseret på JavaScript. Ligeledes ville dette værktøj være
+#[c]svært at integrere med resten af testene. Vi besluttede os derfor for at lave IETest. 
+#[c]
+#[c]Enkel navigering, alert-håndtering, tekstsøgning og håndtering af popup'er, er alt sammen små ting, men til sammen udgør de et værktøj der faktisk gør det trivielt at skrive tests af brugergrænseflader der benytter
+#[c]Internet Explorer. IETest er open source og kan hentes fra http://ietest.sourceforge.net.
+#[c]
+#[cf]
