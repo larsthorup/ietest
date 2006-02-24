@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC 
+	"-//OASIS//DTD DocBook XML V4.1.2//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+]>
+<book>
+
+<bookinfo>
+	<title>IETest</title>
+	<copyright>
+		<year>2005</year>
+		<holder>BestBrains ApS</holder>
+	</copyright>
+
+<keywordset>
+	<keyword>IETest</keyword>
+	<keyword>Internet Explorer</keyword>
+	<keyword>Test</keyword>
+	<keyword>Test Driven Development</keyword>
+	<keyword>NUnit</keyword>
+</keywordset>
+</bookinfo>
+<!--[c]-->
+<!--[of]:Introduction-->
+<section>
+<title>Introduction</title>
+<!--[c]-->
+<!--[of]: - License-->
+<!--[c](Denne sektion er udkommenteret ind til videre...)-->
+<!--[c]-->
+<!--[c]<section>-->
+<!--[c]<title>License</title>-->
+<!--[c]<para>-->
+<!--[c]Bablah.. -->
+<!--[c]</para>-->
+<!--[c]</section>-->
+<!--[cf]-->
+<!--[of]: - What is IETest?-->
+<section>
+<title>What is IETest?</title>
+<para>
+IETest is a .NET library for testing web sites through Microsoft Internet Explorer.
+It enables you to automate Internet Explorer to the point where you can perform automated testing without any human attention required.
+</para>
+<para>
+IETest is developed by <ulink url="http://www.bestbrains.dk">BestBrains Aps</ulink>, a Danish software development consultancy 
+company specializing in agile methods and test driven development. 
+It is open source, released under the <ulink url="http://www.opensource.org/licenses/mit-license.php">MIT license</ulink> and hosted
+on <ulink url="http://sourceforge.net/projects/ietest"><graphic fileref="http://sourceforge.net/sflogo.php?group_id=138358&amp;type=5"></graphic></ulink>
+</para>
+<para>
+Other frameworks supply similar functionality: <ulink url="http://wtr.rubyforge.org/">Watir</ulink> which is Ruby based, and <ulink url="http://ieunit.sourceforge.net/">IeUnit</ulink> which is JavaScript based.
+IETest is .NET based and supports modeless dialogs.
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Download-->
+<section>
+<title>Download</title>
+<para>
+You can download the latest source code here: <ulink url="http://prdownloads.sourceforge.net/ietest/ietest-0.2.zip?download">ietest-0.2.zip</ulink>.
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - About TDD-->
+<section>
+<title>About Test Driven Development</title>
+<para>
+Test driven development is a very efficient way of developing code. It is gaining popularity and test tools are ever improving. Automated testing
+of UI code seems to lack behind a little, though. With good reason - simulating a user is tedious and error prone. 
+Using IETest, testing your ui becomes possible. Like with all software, writing tests for your web applications has a way of automatically making you 
+write better code.
+You will be more likely to give elements unique and intuitive identifiers and less likely to write hacks that might well work but would be difficult to test.
+For a thorough discussion about the wonders and challenges of test driven development, take a look at 
+<ulink url="http://www.testdriven.com">Testdriven.com</ulink>.
+</para>
+</section>
+<!--[cf]-->
+<!--[c]-->
+</section>
+<!--[c]-->
+<!--[cf]-->
+<!--[of]:Getting started-->
+<section>
+<title>Getting Started</title>
+<!--[c]-->
+<!--[of]: - Prerequisites and installation, NUnit..-->
+<section>
+<title>Installation and Prerequisites</title>
+<para>
+IETest requires the .NET framework version 1.1 or later.
+IETest is built with C#. So far, it has only been used with C# but using it from other .NET languages should be simple.
+</para>
+<para>
+As it is more of an automation framework than an actual testing framework, you will also need your favourite testing framework
+such as <ulink url="http://www.nunit.org/">NUnit</ulink> in order to write tests.
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - A simple example-->
+<section>
+<title>A simple example</title>
+<para>
+The key element in IETest is the IEDriver class. It wraps IE automation functionality and supplies help for various common tasks.
+The following piece of code will create a new IEDriver which will open Internet Explorer and navigate to Google. Then, it will find the
+query input box which has the name "q", and enter "BestBrains" in there. 
+Finally, it will locate the search button, named "btnG", and click it. You should see search results popping up just before Internet Explorer
+closes.
+</para>
+<para>
+<programlisting>
+<![CDATA[
+using(IEDriver ie = new IEDriver("http://www.google.com", true))
+{
+	Input q = ie.MainDocument.FindINPUT("q");
+	q.Value = "BestBrains";
+	
+	InputButton btnG = ie.MainDocument.FindINPUT_BUTTON("btnG");
+	btnG.Click();
+}
+]]>
+</programlisting>
+</para>
+</section>
+<!--[cf]-->
+<!--[c]-->
+</section>
+<!--[c]-->
+<!--[cf]-->
+<!--[of]:Users Guide-->
+<section>
+<title>Users Guide</title>
+<!--[c]-->
+<!--[of]: - Structure of IETest-->
+<section>
+<title>Structure of IETest</title>
+<para>
+
+The primary class in IETest is the IEDriver class.
+Instaitiating this class will cause Internet Explorer to open and navigate to the requested site.
+From there, you will most likely access the main document through the MainDocument method. This is where all the html is stored.
+
+
+
+<!--[c]Contents:-->
+<!--[c] - IEDriver-->
+<!--[c] - Document-->
+<!--[c] - xxx element-->
+<!--[c] - xxx collection (generated)-->
+
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Using various tags, etc.-->
+<section>
+<title>Using the various tags, etc.</title>
+<para>
+At the time of writing, IETest has wraps for the following HTML tags:
+<itemizedlist>
+<listitem>table</listitem>
+<listitem>tr</listitem>
+<listitem>td</listitem>
+<listitem>span</listitem>
+<listitem>div</listitem>
+<listitem>input</listitem>
+<listitem>img</listitem>
+<listitem>form</listitem>
+<listitem>frame</listitem>
+</itemizedlist>
+
+Most of these have simple Find functions. This means that you can write things like:
+FindTABLE(elementId), which will locate the table element with the given id.
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Wandering around the DOM-->
+<section>
+<title>Wandering Around the DOM</title>
+<para>
+Sometimes, you simplky don't have an ID of the element you are looking for. Or multiple elements share the same id.
+In such cases, you have two options when you really want to locate an element. You can search for it by some other means than
+the id, or you can count your way towards, by traversing the DOM. 
+Currently, IETest has no way of performing non-id based searches, but this is definitely a high priority task.
+There are however ways to traverse the DOM. Firstly, all elements expose a method called NextSibling. This method will give you
+the element that immediately follows the current. The Parent() method will give you the element that contains the current.
+Furthermore, a number of properties give you a way of locating a child of the current element. TBODY, for instance, will give
+you a collection of TableSection's. 
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Controlling Popup's-->
+<section>
+<title>Controlling Popup's</title>
+<para>
+Popups are difficult to test for a number of reasons. Most of all, the IE automation model makes it hard. As far as we can tell, there is no way to 
+access the DOM of a modal IE popup.
+Therefore, there are some things that simply aren't possible to test. However, if you have access to the code of the web application, 
+changing modal dialogs to modeless dialogs can help out in many situations. There are two problems with this approach: firstly, the modeless 
+dialog doesn't return a result but instead, it returns a handle to the opened window.
+This can be solved with some JavaScript workarounds. The second problem is that focus is not restricted to the dialog - you can click on the 
+window behind it and continue doing things even though there is a dialog waiting for input. This is actually not a big problem because for testing 
+purposes, you simply won't do that - there should be no user anyway.
+
+Controlling modeless dialogs with IETest is simple. Call IEDriver.GetPopupDocument and you have the document object of your popup. 
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Alert's-->
+<section>
+<title>Alert's</title>
+<para>
+The JavaScript function alert() is quite handy for the web developer. It provides a simple way to give feedback to the user that a form is not filled correctly etc.
+Often, these alert messages will be essential to what you are testing. Testing a validation function requires being able to know that it found the data invalid.
+IETest offers a way of testing this. The PopupWatcher is a thread that sits in the background looking for alert windows. When one is encountered, it is stored
+in a queue. When an alert is expected, call the PopAlert() function which will return a string containing the first popup message that was caught and remove
+it from the queue.
+When the PopupWatcher is disposed of (usually together with the disposal of IEDriver), it will complain if there were any messages left in the queue, indicating
+that an unexpected popup appeared at some point.
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Threading Apartment-->
+<section>
+<title>Threading Apartment</title>
+<para>
+As mshtml expects the host to be running as STA - single threaded apartment - you need to make sure your tests are as well.
+If you're using testdriven.net, you won't have a problem but NUnit-gui runs as MTA per default. Hence, you need to change
+the threading apartment manually.
+The self test illustrates how to do this in your TestFixtureSetUp method:
+<programlisting>
+<![CDATA[
+[TestFixtureSetUp]
+public void Setup()
+{
+	System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
+	
+}
+]]>
+</programlisting>
+
+</para>
+</section>
+<!--[cf]-->
+<!--[c]-->
+</section>
+<!--[c]-->
+<!--[cf]-->
+<!--[of]:For developers-->
+<section>
+<title>For Developers</title>
+<!--[c]-->
+<!--[of]: - Design philosophy-->
+<section>
+<title>Design philosophy</title>
+<para>
+IETest was made primarily as an abstraction layer for specialised libraries for testing specific web applications.
+Hence, classes have been designed to be overridden.
+</para>
+</section>
+<!--[cf]-->
+<!--[of]: - Known Issues and Todo's-->
+<section>
+<title>Known Issues and Todo's</title>
+<para>
+Todo:
+<itemizedlist>
+<listitem>Modal dialogs are not handled. This may or may not be possible at all. Some reseach is required.</listitem>
+<listitem>
+IEDriver should be able to tell when Javascript is done. Note that this might never happen and that the situation for IETest is identical
+to the one of the user. Should you start navigating around a site that is still processing Javscript, you might experience strange behaviour.
+</listitem>
+<listitem>Collections are being generated by a C# program. Using C# 2.0, this could easily be done with generics.</listitem>
+<listitem>Posibility to expose C# classes and functions to Javascript.</listitem>
+</itemizedlist>
+</para>
+</section>
+<!--[cf]-->
+<!--[c]-->
+</section>
+<!--[c]-->
+<!--[cf]-->
+<!--[of]:Changelog-->
+<section>
+<title>Changelog</title>
+<para>
+0.2 - May 30 2005:
+<itemizedlist>
+<listitem>Code generation makefile now only rebuilds if necessary</listitem>
+<listitem>Search for tag by text added</listitem>
+</itemizedlist>
+
+0.15 - May 30 2005:
+<itemizedlist>
+<listitem>Fixed threading apartment in self test. Now runs in NUnit-gui as well.</listitem>
+<listitem>Changed collections so they don't contain elements of other types. You can now trust that a DivCollection contains only div's.</listitem>
+</itemizedlist>
+
+0.1 - May 27 2005: 
+<itemizedlist>
+<listitem>Initial release</listitem>
+</itemizedlist>
+</para>
+</section>
+<!--[c]-->
+<!--[cf]-->
+<!--[c]-->
+</book>

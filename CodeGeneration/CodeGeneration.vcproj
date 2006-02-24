@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="CodeGeneration"
+	ProjectGUID="{E8914F3A-65EB-44F8-841C-D84122EF1E99}"
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="nmake CodeGeneration.mak"
+				ReBuildCommandLine="nmake CodeGeneration.mak"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="0">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="nmake CodeGeneration.mak"
+				ReBuildCommandLine="nmake CodeGeneration.mak"/>
+		</Configuration>
+	</Configurations>
+	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C5AF70CB-754A-42F3-BCF9-34EBF8C8FD8C}"
+			Name="CodeGenerator"/>
+	</References>
+	<Files>
+		<File
+			RelativePath=".\CodeGeneration.mak">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

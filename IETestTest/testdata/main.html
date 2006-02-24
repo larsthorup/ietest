@@ -1,0 +1,26 @@
+<html>
+<script language="javascript">
+var popupWindow;
+function GetPopupWindow()
+{
+	return popupWindow;
+}
+</script>
+<body>
+<form id="form"><input id="name" type="text"/><input id="popup" value="popup" type="button" onclick="javascript:popupWindow = window.showModelessDialog('popup.html', document)"/><input id="hello" value="hello" type="button" onclick="javascript:alert('hello')"/></form>
+<form id="collectionTestForm">
+<input type="hidden" value="first"/>
+<input type="hidden" value="second"/>
+</form>
+<table id="table">
+<tr>
+<td id="td1">a1</td>
+<td id="td2">a2</td>
+<td>a3</td>
+</tr>
+<tr>
+<td id="td1">b1</td>
+<td id="td2">b2</td>
+</tr>
+</table>
+</body>
