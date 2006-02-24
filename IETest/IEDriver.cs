@@ -48,7 +48,6 @@ namespace BestBrains.IETest
 		private DispHTMLBaseElement dispHtmlBaseElement { get { return (DispHTMLBaseElement)element; } }
 		private IHTMLDOMChildrenCollection children { get { return (IHTMLDOMChildrenCollection)(domNode.childNodes); } } // or: use IHTMLDomNode.childNodes
 	}
-
 	public class TableSection : Element
 	{
 		public TableSection(IEDriver ie, HTMLTableSection htmlTableSection) : base(ie, (IHTMLElement)htmlTableSection)
@@ -64,12 +63,6 @@ namespace BestBrains.IETest
 	public class TableCell : Element
 	{
 		public TableCell(IEDriver ie, HTMLTableCell htmlTableCell) : base(ie, (IHTMLElement)htmlTableCell)
-		{
-		}
-	}
-	public class Span : Element
-	{
-		public Span(IEDriver ie, HTMLSpanElement HTMLSpanElement) : base(ie, (IHTMLElement)HTMLSpanElement)
 		{
 		}
 	}
@@ -107,21 +100,54 @@ namespace BestBrains.IETest
 		{
 		}
 	}
-	public class Select : Element
-	{
-		public Select(IEDriver ie, HTMLSelectElement htmlSelectElement) : base(ie, (IHTMLElement)htmlSelectElement)
-		{
-		}
-		
-		public void setSelection(int index)
-		{
-			((HTMLSelectElement)element).selectedIndex = index;
-		}
-		
-	}
 	public class Form : Element 
 	{
 		public Form(IEDriver ie, HTMLFormElement htmlFormElement) : base(ie, (IHTMLElement)htmlFormElement)
+		{
+		}
+	}
+	public class Span : Element
+	{
+		public Span(IEDriver ie, HTMLSpanElement HTMLSpanElement) : base(ie, (IHTMLElement)HTMLSpanElement)
+		{
+		}
+	}
+	public class Select : Element
+	{
+		private IEDriver ie;
+		private HTMLSelectElement selectElement;
+		public Select(IEDriver ie, HTMLSelectElement selectElement) : base(ie, (IHTMLElement)selectElement)
+		{
+			this.ie = ie;
+			this.selectElement = selectElement;
+		}
+		
+		public Option getSelectedOption() 
+		{ 
+			IHTMLElementCollection elements = selectElement.getElementsByTagName("OPTION");
+			IEnumerator enumerator = elements.GetEnumerator();
+			while(enumerator.MoveNext()) 
+			{
+				HTMLOptionElement o = (HTMLOptionElement)enumerator.Current;
+				if(o.selected)
+				{
+					System.Diagnostics.Debug.WriteLine("Selected found");
+					return new Option(ie, o);
+				}
+			}
+			throw new Exception("Could not find selected Option.");
+		}
+		public OptionCollection OPTION{ get { return new OptionCollection(ie, (IHTMLDOMChildrenCollection)this.selectElement.getElementsByTagName("OPTION")); } }
+	}
+	public class Option : Element
+	{
+		public Option(IEDriver ie, HTMLOptionElement optionElement) : base(ie, (IHTMLOptionElement)optionElement)
+		{
+		}
+	}
+	public class Anchor : Element
+	{
+		public Anchor(IEDriver ie, HTMLAnchorElement anchorElement) : base(ie, (IHTMLElement)anchorElement)
 		{
 		}
 	}
@@ -141,56 +167,43 @@ namespace BestBrains.IETest
 		}
 		public Document FindFRAMEDocument(string elementId)
 		{
-			return new Document(ie, (HTMLDocument)((HTMLIFrame)GetElementById(elementId)).contentWindow.document);
-		}
-		public string[] Frames { 
-			get {
-				ArrayList frames = new ArrayList();
-				foreach(IHTMLElement e in htmlDocument.all)
-				{
-					if(e.tagName.ToLower() == "iframe")
-					{
-						frames.Add(e.id);
-					}
-				}
-				return (string[])frames.ToArray(typeof(string));
-			}
+			return new Document(ie, (HTMLDocument)((HTMLIFrame)htmlDocument.getElementById(elementId)).contentWindow.document);
 		}
 		public TableRow FindTR(string elementId)
 		{
-			return new TableRow(ie, (HTMLTableRow)GetElementById(elementId));
+			return new TableRow(ie, (HTMLTableRow)htmlDocument.getElementById(elementId));
 		}
-		public Input FindINPUT(string elementId)
+		public Span FindSPAN(string elementId)
 		{
-			return new Input(ie, (HTMLInputElement)GetElementById(elementId));
+			return new Span(ie, (HTMLSpanElement)htmlDocument.getElementById(elementId));
 		}
-		public Table FindTABLE(string elementId)
+		public Anchor FindANCHOR(string elementId)
 		{
-			return new Table(ie, (HTMLTable)GetElementById(elementId));
-		}
-		public Form FindFORM(string elementId)
-		{
-			return new Form(ie, (HTMLFormElement)GetElementById(elementId));
-		}
-		public InputButton FindINPUT_BUTTON(string elementId)
-		{
-			return new InputButton(ie, (HTMLInputButtonElement)GetElementById(elementId));
-		}
-		public Div FindDIV(string elementId)
-		{
-			return new Div(ie, (HTMLDivElement)GetElementById(elementId));
-		}
-		public Img FindIMG(string elementId)
-		{
-			return new Img(ie, (HTMLImg)GetElementById(elementId));
+			return new Anchor(ie, (HTMLAnchorElement)htmlDocument.getElementById(elementId));
 		}
 		public Select FindSELECT(string elementId)
 		{
-			return new Select(ie, (HTMLSelectElement)GetElementById(elementId));
+			return new Select(ie, (HTMLSelectElement)htmlDocument.getElementById(elementId));
+		}
+		public Input FindINPUT(string elementId)
+		{
+			return new Input(ie, (HTMLInputElement)htmlDocument.getElementById(elementId));
+		}
+		public Table FindTABLE(string elementId)
+		{
+			return new Table(ie, (HTMLTable)htmlDocument.getElementById(elementId));
+		}
+		public Form FindFORM(string elementId)
+		{
+			return new Form(ie, (HTMLFormElement)htmlDocument.getElementById(elementId));
+		}
+		public InputButton FindINPUT_BUTTON(string elementId)
+		{
+			return new InputButton(ie, (HTMLInputButtonElement)htmlDocument.getElementById(elementId));
 		}
 		public TableCell FindTD(string elementId)
 		{
-			return new TableCell(ie, (HTMLTableCell)GetElementById(elementId));
+			return new TableCell(ie, (HTMLTableCell)htmlDocument.getElementById(elementId));
 		}
 		public TableCell FindTD(string elementId, int occurence)
 		{
@@ -206,7 +219,7 @@ namespace BestBrains.IETest
 					}
 				}
 			}
-			throw new Exception("Could not find the " + occurence + ". element with id: " + elementId);
+			return null;
 		}
 
 		public IHTMLElement FindTagFromText(string text, string tagname)
@@ -234,6 +247,21 @@ namespace BestBrains.IETest
 			return new TableRow(ie, (HTMLTableRow)FindTagFromText(text, "TR"));
 		}
 
+		public Span FindSPANFromText(string text)
+		{
+			return new Span(ie, (HTMLSpanElement)FindTagFromText(text, "SPAN"));
+		}
+			
+		public Anchor FindANCHORFromText(string text)
+		{
+			return new Anchor(ie, (HTMLAnchorElement)FindTagFromText(text, "A"));
+		}
+		
+		public Select FindSELECTFromText(string text)
+		{
+			return new Select(ie, (HTMLSelectElement)FindTagFromText(text, "SELECT"));
+		}
+		
 		public Input FindINPUTFromText(string text)
 		{
 			return new Input(ie, (HTMLInputElement)FindTagFromText(text, "INPUT"));
@@ -252,29 +280,7 @@ namespace BestBrains.IETest
 			return new TableCell(ie, (HTMLTableCell)FindTagFromText(text, "TD"));
 		}
 		
-		private IHTMLElement GetElementById(string elementId)
-		{
-			IHTMLElement el = htmlDocument.getElementById(elementId);
-			if(el == null)
-			{
-				throw new Exception("Could not find element with id: " + elementId + ". These id's exists: " + ElementIdList);
-			}
-			return el;
-		}
-
-		private string ElementIdList 
-		{
-			get 
-			{
-				StringBuilder result = new StringBuilder();
-				foreach(IHTMLElement e in htmlDocument.all)
-				{
-					if(result.Length > 0) result.Append(",");
-					result.Append(e.id);
-				}
-				return result.ToString();
-			}
-		}
+		
 
 		public Document GetPopupDocument() 
 		{
@@ -536,6 +542,7 @@ namespace BestBrains.IETest
 
 		}
 
+		// TODO: Implement CaptiaDriver.popAlert
 		public string popAlert() 
 		{
 			return popupWatcher.popAlert();			
@@ -544,11 +551,6 @@ namespace BestBrains.IETest
 		public void flushAlerts()
 		{
 			popupWatcher.flushAlerts();
-		}
-
-		public int alertCount() 
-		{
-			return popupWatcher.alertCount();
 		}
 
 		public void FireEvent(DispHTMLBaseElement element, string eventName) 
@@ -725,7 +727,7 @@ namespace BestBrains.IETest
 	}
 	public class UnanticipatedAlertsException : Exception 
 	{
-		public UnanticipatedAlertsException(string[] alerts) : base(String.Concat(alerts))
+		public UnanticipatedAlertsException(string[] alerts)
 		{
 			this.alerts = alerts;
 		}

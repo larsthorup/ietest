@@ -14,6 +14,9 @@ build: $(outdir)\FormCollection.cs
 build: $(outdir)\InputCollection.cs 
 build: $(outdir)\InputButtonCollection.cs 
 build: $(outdir)\ImgCollection.cs 
+build: $(outdir)\AnchorCollection.cs
+build: $(outdir)\SelectCollection.cs
+build: $(outdir)\OptionCollection.cs
 
 $(outdir)\TableCollection.cs: $(template) $(CodeGenerator)
 	$(CodeGenerator) Table HTMLTable
@@ -44,6 +47,16 @@ $(outdir)\InputButtonCollection.cs: $(template) $(CodeGenerator)
 
 $(outdir)\ImgCollection.cs: $(template) $(CodeGenerator)
 	$(CodeGenerator) Img HTMLImg
+
+$(outdir)\AnchorCollection.cs: $(template) $(CodeGenerator)
+	$(CodeGenerator) Anchor HTMLAnchorElement
+
+$(outdir)\SelectCollection.cs: $(template) $(CodeGenerator)
+	$(CodeGenerator) Select HTMLSelectElement
+
+$(outdir)\OptionCollection.cs: $(template) $(CodeGenerator)
+	$(CodeGenerator) Option HTMLOptionElement
+
 
 clean:
 

@@ -114,9 +114,18 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AnchorCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ChangeLog.txt"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "DivCollection.cs"
@@ -145,6 +154,16 @@
                 />
                 <File
                     RelPath = "InputCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "OptionCollection.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SelectCollection.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
