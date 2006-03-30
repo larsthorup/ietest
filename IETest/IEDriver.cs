@@ -242,6 +242,25 @@ namespace BestBrains.IETest
 			throw new Exception("Could not find a " + tagname + " tag containing the text: " + text);
 		}
 
+		public IHTMLElement FindTagFromName(string name, string tagname)
+		{
+			IHTMLElementCollection elements = htmlDocument.getElementsByName(name);
+			IEnumerator enumerator = elements.GetEnumerator();
+
+			while(enumerator.MoveNext()) 
+			{
+				IHTMLElement e = (IHTMLElement)enumerator.Current;
+				if(e.tagName == tagname)
+				{
+					if(e.id != null)
+					{
+						System.Diagnostics.Debug.WriteLine("Found a " + tagname + " tag from the name: " + name + ". The ID, which you should probably use instead, is: " + e.id);
+					}
+					return e;
+				}
+			}
+			throw new Exception("Could not find a " + tagname + " tag containing the name: " + name);
+		}
 		public TableRow FindTRFromText(string text)
 		{
 			return new TableRow(ie, (HTMLTableRow)FindTagFromText(text, "TR"));
@@ -266,7 +285,10 @@ namespace BestBrains.IETest
 		{
 			return new Input(ie, (HTMLInputElement)FindTagFromText(text, "INPUT"));
 		}
-
+		public Input FindINPUTFromName(string name)
+		{
+			return new Input(ie, (HTMLInputElement)FindTagFromName(name, "INPUT"));
+		}
 		public Table FindTABLEFromText(string text)
 		{
 			return new Table(ie, (HTMLTable)FindTagFromText(text, "TABLE"));
