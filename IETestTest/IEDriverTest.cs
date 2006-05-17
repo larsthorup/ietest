@@ -15,13 +15,12 @@ namespace BestBrains.IETestTest
 		{
 		}
 
-		[TestFixtureSetUp]
-		public void Setup()
-		{
-			System.Threading.Thread.CurrentThread.ApartmentState = System.Threading.ApartmentState.STA;
-			
-		}
-
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            System.Threading.Thread.CurrentThread.SetApartmentState(System.Threading.ApartmentState.STA);
+        }
+	    
 		[Test]
 		public void NUnitGUITest() 
 		{
