@@ -30,7 +30,8 @@ namespace BestBrains.IETest
 		public string Title { get { return htmlElement.title; } }
 		public Element NextSibling { get { return new Element(ie, domNode.nextSibling); } }
 		public Element Parent { get { return new Element(ie, domNode.parentNode); } }
-		public void Click() { dispHtmlBaseElement.click(); ie.WaitForComplete(); }
+        public Element FirstChild { get { return new Element(ie, domNode.firstChild); } }
+        public void Click() { dispHtmlBaseElement.click(); ie.WaitForComplete(); }
 		public void Focus() { dispHtmlBaseElement.focus(); FireEvent("onfocus"); }
 		public void DoubleClick() { FireEvent("ondblclick"); }
 		public void MouseEnter() { FireEvent("onmouseenter"); }
@@ -167,44 +168,83 @@ namespace BestBrains.IETest
 		}
 		public Document FindFRAMEDocument(string elementId)
 		{
-			return new Document(ie, (HTMLDocument)((HTMLIFrame)htmlDocument.getElementById(elementId)).contentWindow.document);
+			return new Document(ie, (HTMLDocument)((HTMLIFrame)GetElementById(elementId)).contentWindow.document);
 		}
-		public TableRow FindTR(string elementId)
+        public string[] Frames
+        {
+            get
+            {
+                ArrayList frames = new ArrayList();
+                foreach (IHTMLElement e in htmlDocument.all)
+                {
+                    if (e.tagName.ToLower() == "iframe")
+                    {
+                        frames.Add(e.id);
+                    }
+                }
+                return (string[])frames.ToArray(typeof(string));
+            }
+        }
+        public TableRow FindTR(string elementId)
 		{
-			return new TableRow(ie, (HTMLTableRow)htmlDocument.getElementById(elementId));
+			return new TableRow(ie, (HTMLTableRow)GetElementById(elementId));
 		}
 		public Span FindSPAN(string elementId)
 		{
-			return new Span(ie, (HTMLSpanElement)htmlDocument.getElementById(elementId));
+			return new Span(ie, (HTMLSpanElement)GetElementById(elementId));
 		}
 		public Anchor FindANCHOR(string elementId)
 		{
-			return new Anchor(ie, (HTMLAnchorElement)htmlDocument.getElementById(elementId));
+			return new Anchor(ie, (HTMLAnchorElement)GetElementById(elementId));
 		}
 		public Select FindSELECT(string elementId)
 		{
-			return new Select(ie, (HTMLSelectElement)htmlDocument.getElementById(elementId));
+			return new Select(ie, (HTMLSelectElement)GetElementById(elementId));
 		}
 		public Input FindINPUT(string elementId)
 		{
-			return new Input(ie, (HTMLInputElement)htmlDocument.getElementById(elementId));
+			return new Input(ie, (HTMLInputElement)GetElementById(elementId));
 		}
-		public Table FindTABLE(string elementId)
+        public Table FindTABLE(string elementId)
 		{
-			return new Table(ie, (HTMLTable)htmlDocument.getElementById(elementId));
+			return new Table(ie, (HTMLTable)GetElementById(elementId));
 		}
-		public Form FindFORM(string elementId)
+        public Div FindDIV(string elementId)
+        {
+            return new Div(ie, (HTMLDivElement)GetElementById(elementId));
+        }
+        public Form FindFORM(string elementId)
 		{
-			return new Form(ie, (HTMLFormElement)htmlDocument.getElementById(elementId));
+			return new Form(ie, (HTMLFormElement)GetElementById(elementId));
 		}
 		public InputButton FindINPUT_BUTTON(string elementId)
 		{
-			return new InputButton(ie, (HTMLInputButtonElement)htmlDocument.getElementById(elementId));
+			return new InputButton(ie, (HTMLInputButtonElement)GetElementById(elementId));
 		}
 		public TableCell FindTD(string elementId)
 		{
-			return new TableCell(ie, (HTMLTableCell)htmlDocument.getElementById(elementId));
+			return new TableCell(ie, (HTMLTableCell)GetElementById(elementId));
 		}
+        public IHTMLElement GetElementById(string elementId)
+        {
+            IHTMLElement htmlElement = htmlDocument.getElementById(elementId);
+            if(htmlElement == null)
+            {
+                throw new ArgumentException(string.Format("Element '{0}' not found; must be one of: {1}", elementId, GetElementListText()));
+            }
+            return htmlElement;
+        }
+
+        private string GetElementListText()
+        {
+            StringBuilder result = new StringBuilder();
+            foreach (IHTMLElement e in htmlDocument.all)
+            {
+                if (result.Length > 0) result.Append(", ");
+                result.Append(e.id);
+            }
+            return string.Format("[{0}]", result);
+        }
 		public TableCell FindTD(string elementId, int occurence)
 		{
 			int nr = -1;
@@ -219,7 +259,7 @@ namespace BestBrains.IETest
 					}
 				}
 			}
-			return null;
+            throw new ArgumentException(string.Format("Occurence {0} of element with id '{1}' not found in '{2}'", occurence, elementId, GetElementListText()));
 		}
 
 		public IHTMLElement FindTagFromText(string text, string tagname)
