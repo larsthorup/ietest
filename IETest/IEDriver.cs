@@ -138,12 +138,23 @@ namespace BestBrains.IETest
 			}
 			throw new Exception("Could not find selected Option.");
 		}
-		public OptionCollection OPTION{ get { return new OptionCollection(ie, (IHTMLDOMChildrenCollection)this.selectElement.getElementsByTagName("OPTION")); } }
+		public OptionCollection OPTION{ get { return new OptionCollection(ie, (IHTMLElementCollection)this.selectElement.getElementsByTagName("OPTION")); } }
 	}
 	public class Option : Element
 	{
+		private IEDriver ie;
+		private HTMLOptionElement optionElement;
+
 		public Option(IEDriver ie, HTMLOptionElement optionElement) : base(ie, (IHTMLOptionElement)optionElement)
 		{
+			this.ie = ie;
+			this.optionElement = optionElement;
+		}
+
+		public bool Selected
+		{
+			get { return this.optionElement.selected; }
+			set { this.optionElement.selected = value; }
 		}
 	}
 	public class Anchor : Element
