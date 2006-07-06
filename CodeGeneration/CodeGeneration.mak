@@ -54,9 +54,6 @@ $(outdir)\AnchorCollection.cs: $(template) $(CodeGenerator)
 $(outdir)\SelectCollection.cs: $(template) $(CodeGenerator)
 	$(CodeGenerator) Select HTMLSelectElement
 
-$(outdir)\OptionCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Option HTMLOptionElement
-
 
 clean:
 
