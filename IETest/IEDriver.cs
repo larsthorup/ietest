@@ -138,7 +138,7 @@ namespace BestBrains.IETest
 			}
 			throw new Exception("Could not find selected Option.");
 		}
-		public OptionCollection OPTION{ get { return new OptionCollection(ie, (IHTMLElementCollection)this.selectElement.getElementsByTagName("OPTION")); } }
+		public OptionCollection OPTION{ get { return new OptionCollection(ie, (IHTMLDOMChildrenCollection)this.selectElement.getElementsByTagName("OPTION")); } }
 	}
 	public class Option : Element
 	{
