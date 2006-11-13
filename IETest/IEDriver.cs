@@ -715,10 +715,12 @@ namespace BestBrains.IETest
 
 			// System.Diagnostics.Debug.WriteLine("ie: " + ie.LocationURL);
 
-			for(int i = 0; i != HtmlDocument.frames.length; ++i)
+            object framesObj = HtmlDocument.frames;
+            FramesCollection frames = HtmlDocument.frames;
+			for(int i = 0; i != frames.length; ++i)
 			{
 				Object o = i;
-				IHTMLWindow2 frame = (IHTMLWindow2)HtmlDocument.frames.item(ref o);
+				IHTMLWindow2 frame = (IHTMLWindow2)frames.item(ref o);
 				// System.Diagnostics.Debug.WriteLine("Frame: " + frame.location.pathname + ", Readystate: " + frame.document.readyState);
 				while(frame.document.readyState != "complete")
 				{
@@ -801,6 +803,7 @@ namespace BestBrains.IETest
 	public class UnanticipatedAlertsException : Exception 
 	{
 		public UnanticipatedAlertsException(string[] alerts)
+            : base(string.Concat(alerts))
 		{
 			this.alerts = alerts;
 		}
