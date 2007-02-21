@@ -40,7 +40,7 @@
         <include name="IETest\**.cs" />
       </sources>
       <references>
-        <include name="${environment::get-folder-path('ProgramFiles')}\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll" />
+        <include name="Lib\Microsoft.mshtml.dll" />
         <include name="Lib\Interop.SHDocVw.dll" />
       </references>
     </csc>
