@@ -132,5 +132,11 @@
       <arg value="HTMLSelectElement" />
       <arg value="..\..\IETest" />
     </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Option" />
+      <arg value="HTMLOptionElement" />
+      <arg value="..\..\IETest" />
+    </exec>
   </target>
 </project>
