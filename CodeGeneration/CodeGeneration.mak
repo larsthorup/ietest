@@ -19,43 +19,46 @@ build: $(outdir)\SelectCollection.cs
 build: $(outdir)\OptionCollection.cs
 
 $(outdir)\TableCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Table HTMLTable
+	$(CodeGenerator) Table HTMLTable $(outdir)
 
 $(outdir)\TableSectionCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) TableSection HTMLTableSection
+	$(CodeGenerator) TableSection HTMLTableSection $(outdir)
 
 $(outdir)\TableRowCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) TableRow HTMLTableRow
+	$(CodeGenerator) TableRow HTMLTableRow $(outdir)
 
 $(outdir)\TableCellCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) TableCell HTMLTableCell
+	$(CodeGenerator) TableCell HTMLTableCell $(outdir)
 
 $(outdir)\SpanCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Span HTMLSpanElement
+	$(CodeGenerator) Span HTMLSpanElement $(outdir)
 
 $(outdir)\DivCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Div HTMLDivElement
+	$(CodeGenerator) Div HTMLDivElement $(outdir)
 
 $(outdir)\FormCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Form HTMLFormElement
+	$(CodeGenerator) Form HTMLFormElement $(outdir)
 
 $(outdir)\InputCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Input HTMLInputElement
+	$(CodeGenerator) Input HTMLInputElement $(outdir)
 
 $(outdir)\InputButtonCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) InputButton HTMLInputButtonElement
+	$(CodeGenerator) InputButton HTMLInputButtonElement $(outdir)
 
 $(outdir)\ImgCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Img HTMLImg
+	$(CodeGenerator) Img HTMLImg $(outdir)
 
 $(outdir)\AnchorCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Anchor HTMLAnchorElement
+	$(CodeGenerator) Anchor HTMLAnchorElement $(outdir)
 
 $(outdir)\SelectCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Select HTMLSelectElement
+	$(CodeGenerator) Select HTMLSelectElement $(outdir)
+	
+$(outdir)\OptionCollection.cs: $(template) $(CodeGenerator)
+	$(CodeGenerator) Option HTMLOptionElement $(outdir)
 
 $(outdir)\OptionCollection.cs: $(template) $(CodeGenerator)
-	$(CodeGenerator) Option HTMLOptionElement
+	$(CodeGenerator) Option HTMLOptionElement $(outdir)
 
 clean:
 

@@ -91,13 +91,13 @@
     <Compile Include="CodeGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="Template.txt" />
+    <Content Include="Template.txt">
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy ..\..\Template.txt ..\..\..\CodeGeneration</PostBuildEvent>
   </PropertyGroup>
 </Project>

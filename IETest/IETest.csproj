@@ -79,11 +79,6 @@
       <HintPath>..\..\..\..\Program Files\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll</HintPath>
       <AssemblyFolderKey>hklm\primary interop assemblies</AssemblyFolderKey>
     </Reference>
-    <Reference Include="nunit.framework">
-      <Name>nunit.framework</Name>
-      <HintPath>..\..\..\..\Program Files\NUnit 2.2\bin\nunit.framework.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\nunit.framework</AssemblyFolderKey>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

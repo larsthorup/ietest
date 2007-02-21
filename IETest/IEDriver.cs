@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Reflection;
 using System.Windows.Forms;
-using NUnit.Framework;
 using mshtml;
 using SHDocVw;
 

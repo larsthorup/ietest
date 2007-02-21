@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<project name="IETest" default="build">
+
+  <property name="targetDir" value="bin\debug" overwrite="false" />
+  <property name="debug" value="true" overwrite="false" readonly="true" />
+
+  <target name="clean">
+    <delete dir="${targetDir}" />
+  </target>
+
+  <target name="rebuild">
+    <call target="clean" />
+    <call target="build" />
+  </target>
+  
+  <target name="build">
+    <mkdir dir="${targetDir}" />
+
+    <!-- CodeGenerator -->
+
+    <copy todir="${targetDir}" file="CodeGenerator\Template.txt" />
+    
+    <csc target="exe"
+         output="${targetDir}\CodeGenerator.exe"
+         debug="${debug}"
+         >
+      <sources>
+        <include name="CodeGenerator\**.cs" />
+      </sources>
+    </csc>
+
+    <call target="generateCode" />
+
+    <!-- IETest -->
+    <csc target="library"
+         output="${targetDir}\IETest.dll"
+         debug="${debug}"
+         >
+      <sources>
+        <include name="IETest\**.cs" />
+      </sources>
+      <references>
+        <include name="${environment::get-folder-path('ProgramFiles')}\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll" />
+        <include name="Lib\Interop.SHDocVw.dll" />
+      </references>
+    </csc>
+    
+    <!-- IETestTest -->
+    <csc target="library"
+         output="${targetDir}\IETest.Test.dll"
+         debug="${debug}"
+         >
+      <sources>
+        <include name="IETestTest\**.cs" />
+      </sources>
+      <references>
+        <include name="${targetDir}\IETest.dll" />
+        <include name="Lib\nunit.framework.dll" />
+      </references>
+    </csc>
+  </target>
+
+  <target name="generateCode">
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Table" />
+      <arg value="HTMLTable" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="TableSection" />
+      <arg value="HTMLTableSection" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="TableRow" />
+      <arg value="HTMLTableRow" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="TableCell" />
+      <arg value="HTMLTableCell" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Span" />
+      <arg value="HTMLSpanElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Div" />
+      <arg value="HTMLDivElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Form" />
+      <arg value="HTMLFormElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Input" />
+      <arg value="HTMLInputElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="InputButton" />
+      <arg value="HTMLInputButtonElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Img" />
+      <arg value="HTMLImg" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Anchor" />
+      <arg value="HTMLAnchorElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+
+    <exec program="${targetDir}\CodeGenerator.exe" workingdir="${targetDir}">
+      <arg value="Select" />
+      <arg value="HTMLSelectElement" />
+      <arg value="..\..\IETest" />
+    </exec>
+  </target>
+</project>
